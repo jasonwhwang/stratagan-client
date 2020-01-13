@@ -1,0 +1,66 @@
+.ql-editor {
+  min-height: 15em;
+  line-height: 2;
+  font-size: 16px;
+  box-sizing: border-box;
+  padding: 15px;
+}
+.ql-toolbar.ql-snow {
+  border: 1px solid var(--border);
+  border-radius: 5px 5px 0 0;
+  font-family: inherit;
+  background-color: white;
+  z-index: 1;
+}
+.ql-container.ql-snow {
+  border: 1px solid var(--border);
+  border-radius: 0 0 5px 5px;
+  font-family: inherit;
+}
+.ql-hideToolbar {
+  display: none;
+}
+.ql-hideContainer {
+  border: none !important;
+}
+.ql-removePadding {
+  padding: 0 !important;
+}
+.ql-snow .ql-tooltip {
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  font-family: inherit;
+  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .05);
+}
+.ql-snow .ql-tooltip.ql-editing input[type=text] {
+  display: inline-block;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+}
+.ql-snow .ql-editor img { border-radius: 2px; }
+.ql-snow .ql-editor h1 { font-size: 24px; }
+.ql-snow .ql-editor h2 { font-size: 20px; }
+.ql-snow .ql-editor a { font-size: 16px; }
+
+
+
+.stickyToolbar {
+  position: fixed;
+  top: 0;
+}
+.stickyToolbar50 {
+  position: fixed;
+  top: 50px;
+}
+.stickyPadding {
+  padding-top: 42px;
+}
+.stickyPadding67 {
+  padding-top: 67px;
+}
+
+
+.ql-snow .ql-editor blockquote {
+  border-left: none;
+  padding-left: 0;
+}

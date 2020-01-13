@@ -1,0 +1,30 @@
+.settings-warningHeight {
+  min-height: 30px;
+}
+.settings-labelMinWidth {
+  min-width: 60px;
+}
+
+.pac-container:after {
+  background-image: none !important;
+  content: "Powered by Google";
+  font-family: 'Red Hat Text', sans-serif;
+  font-size: 9px;
+  color: var(--mediumgray);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  margin-right: 4px;
+}
+.pac-item {
+  font-family: 'Red Hat Text', sans-serif;
+  box-sizing: border-box;
+  padding-left: 10px;
+}
+.pac-item:hover {
+  cursor: pointer;
+}
+.pac-icon {
+  display: none;
+}

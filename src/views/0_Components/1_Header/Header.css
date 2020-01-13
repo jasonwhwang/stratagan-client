@@ -1,0 +1,87 @@
+.header {
+  height: 60px;
+  width: 100%;
+
+  position: absolute;
+  z-index: 9;
+
+  background-color: transparent;
+  box-sizing: border-box;
+  
+  transition: 150ms all;
+}
+
+.header-wrapper {
+  height: 100%;
+  width: 100%;
+  max-width: 1500px;
+
+  margin: 0 auto;
+  box-sizing: border-box;
+  padding: 0 20px;
+
+  transition: 150ms all;
+}
+
+.header-title {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: var(--black);
+  font-weight: 700;
+  box-sizing: border-box;
+  padding: 0 20px;
+}
+
+.header-button {
+  height: 100%;
+  box-sizing: border-box;
+  padding: 0 20px;
+  font-size: 12px;
+  white-space: nowrap;
+}
+.header-buttonImage {
+  opacity: 0.7;
+}
+.header-buttonImage:hover {
+  opacity: 1;
+}
+.header-buttonWidth {
+  min-width: 100px;
+}
+
+.header-buttonSelected {
+  color: var(--black);
+  opacity: 1;
+}
+
+.header-logo {
+  height: 100%;
+  width: 80px;
+  min-width: 80px;
+}
+
+@media only screen and (max-width: 800px) {
+  .header {
+    height: 50px;
+    position: fixed;
+    /* background-color: inherit; */
+    backdrop-filter: saturate(180%) blur(20px);
+    background-color: rgba(255,255,255,0.7);
+  }
+  .header-wrapper {
+    padding: 0;
+  }
+  .header-logo {
+    height: 100%;
+    width: 60px;
+    min-width: 60px;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .header-button {
+    padding: 0 15px;
+  }
+}

@@ -1,0 +1,102 @@
+.card-wrapper {
+  width: 100%;
+
+  box-sizing: border-box;
+  border: 1px solid var(--lightgray);
+  background-color: white;
+}
+.card-br-5 {
+  border-radius: 5px;
+}
+.card-imgWrapper {
+  height: 90px;
+  width: 90px;
+  overflow: hidden;
+  background-color: white;
+  border-radius: 5px;
+}
+.card-img {
+  height: 90px;
+  width: auto;
+}
+.card-padding {
+  box-sizing: border-box;
+  padding: 25px;
+}
+
+/* ChallengeCard */
+.card-bookmarkButton {
+  height: 25px;
+  width: 25px;
+  min-width: 25px;
+}
+.card-bookmarkButtonSelected {
+  color: gold;
+  background-color: rgba(175, 155, 98, 0.1);
+  border-radius: 50%;
+}
+.card-bookmarkButtonSelected:hover {
+  color: gold;
+}
+.card-bookmarkButtonSelectedAll {
+  color: gold;
+  background-color: rgba(175, 155, 98, 0.1);
+}
+.card-bookmarkButtonSelectedAll:hover {
+  color: gold;
+}
+
+/* AdviceCard */
+.card-upvoteButton {
+  height: 50px;
+  min-width: 45px;
+}
+.ac-maxHeight {
+  max-height: 115px;
+  overflow: hidden;
+}
+.ac-bottomAnswer {
+  position: relative;
+}
+.ac-padding {
+  box-sizing: border-box;
+  padding: 20px 20px 0 20px;
+}
+.ac-paddingFull {
+  box-sizing: border-box;
+  padding: 20px 20px 20px 20px;
+}
+.ac-gradient {
+  height: 60px;
+  width: calc(100% + 40px);
+  position: absolute;
+  bottom: 0;
+  margin-left: -20px;
+  /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#ffffff+0,ffffff+100&0+0,1+100 */
+  background: linear-gradient(to bottom, rgba(255,255,255,0) 0%,rgba(255,255,255,0.7) 50%,rgba(255,255,255,0.95) 70%,rgba(255,255,255,0.97) 100%);
+}
+.ac-showButton {
+  height: 30px;
+  width: 100%;
+}
+.ac-hideButton {
+  display: none;
+}
+.ac-showDetailsHeight {
+  height: 25px;
+}
+
+/* Notifications */
+
+@media only screen and (max-width: 500px) {
+  .card-imgWrapper {
+    height: 60px;
+    width: 60px;
+  }
+  .card-img {
+    height: 60px;
+  }
+  .card-bottomMargin {
+    margin-bottom: 10px;
+  }
+}

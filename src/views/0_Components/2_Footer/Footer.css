@@ -1,0 +1,35 @@
+.footer {
+  height: 50px;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 8;
+}
+.footer-wrapper {
+  height: 100%;
+  max-width: 1500px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  padding: 0 20px 0 20px;
+}
+
+.footer-section-item {
+  box-sizing: border-box;
+  padding: 0 20px 0 20px;
+  height: 100%;
+}
+
+@media only screen and (max-width: 800px) {
+  .footer {
+    display: none;
+    padding: 0;
+  }
+  .footer-wrapper {
+    justify-content: space-evenly;
+  }
+  .footer-logo {
+    display: none;
+  }
+  .footer-none {
+    display: none;
+  }
+}
