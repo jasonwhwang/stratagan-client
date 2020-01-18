@@ -1,6 +1,7 @@
 import React from 'react'
 // import { getAdviceMember } from '../../../services/api'
 import Dropdown from '../../0_Components/6_Dropdown/Dropdown'
+import ChallengeCard from '../../0_Components/5_Cards/0_ChallengeCard'
 
 class NetworkChallenges extends React.Component {
   state = {
@@ -32,7 +33,8 @@ class NetworkChallenges extends React.Component {
             changeDropdown={this.changeDropdown}
             options={this.state.options} />
         </div>
-        Challenges
+        <ChallengeCard />
+        <h6 className="box-margin-left-20 box-margin-top-20">Development in progress.</h6>
       </div>
     )
   }

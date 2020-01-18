@@ -39,6 +39,7 @@ class Notifications extends React.Component {
           <NotificationCard />
           <NotificationCard />
           <NotificationCard />
+          <h6 className="box-margin-left-20 box-margin-top-20">Development in progress.</h6>
         </div>
       </FadeTransition>
     )

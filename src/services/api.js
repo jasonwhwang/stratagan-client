@@ -278,9 +278,62 @@ async function deleteChallenge(data) {
   }
 }
 
+// Comments
+async function getCommentsChallenge(challenge) {
+  await refresh()
+  let token = AuthStore.getIdToken()
+  let headers = {}
+  if(token) headers["Authorization"] = `Bearer ${token}`
+
+  try {
+    let res = await axios({
+      method: 'get',
+      url: (`/comment/challenge/${challenge}`),
+      headers: headers,
+    })
+
+    return res.data
+  } catch (err) {
+    return err && err.response ? { error: err.response.data } : { error: err}
+  }
+}
+
+async function postComment(data) {
+  await refresh()
+  try {
+    let res = await axios({
+      method: 'post',
+      url: ('/comment'),
+      data: data,
+      headers: { "Authorization": `Bearer ${AuthStore.getIdToken()}` }
+    })
+
+    return res.data
+  } catch (err) {
+    return err && err.response ? { error: err.response.data } : { error: err}
+  }
+}
+
+async function deleteComment(data) {
+  await refresh()
+  try {
+    let res = await axios({
+      method: 'delete',
+      url: ('/comment'),
+      data: data,
+      headers: { "Authorization": `Bearer ${AuthStore.getIdToken()}` }
+    })
+
+    return res.data
+  } catch (err) {
+    return err && err.response ? { error: err.response.data } : { error: err}
+  }
+}
+
 export {
   getWelcome, getLogIn, getUser, putUser,
   getTags, getTagsMain, getTagsMember, postTag,
   getMember, getMembers, getMembersCount,
-  postChallenge, getChallengeMember, getChallenge, getChallengeAll, deleteChallenge
+  postChallenge, getChallengeMember, getChallenge, getChallengeAll, deleteChallenge,
+  getCommentsChallenge, postComment, deleteComment
 }

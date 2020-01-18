@@ -1,5 +1,4 @@
 import React from 'react'
-import { FiBookmark } from "react-icons/fi"
 import { Link } from 'react-router-dom'
 import TextareaAutosize from 'react-autosize-textarea'
 import Tags from '../../0_Components/8_Tags/Tags'
@@ -7,8 +6,7 @@ import Icon from '../../../img/stratagan-icon.png'
 import PlaceImage from '../../../img/placeholder.svg'
 import Image from '../../../img/stratagan.png'
 import Pill from '../../0_Components/5_Cards/5_Pill'
-import { FiMessageCircle } from "react-icons/fi"
-import Loading from '../../0_Components/4_Loading/Loading'
+import { FiBookmark } from "react-icons/fi"
 
 const PostImage = (props) => {
   if (props.editorReadOnly) {
@@ -233,119 +231,6 @@ const PostDetailsReadOnly = (props) => {
   )
 }
 
-const PostCommentButtons = (props) => {
-  if (props.route === 'new') return null
-  let commentCount = props.commentCount ? props.commentCount : 0
-  let comment = commentCount === 1 ? " Comment" : " Comments"
-  return (
-    <div className="box-margin-top-60 box-margin-bottom-10 box-flex-row box-flex-acenter box-border-bottom c-commentBarHeight">
-      <h5>{commentCount + comment}</h5>
-      <div className="box-spacer"></div>
-      {
-        !props.commentDisabled &&
-        <button onClick={() => props.changeVal("commentOpen", !props.commentOpen)}
-          className="box-button box-flex-row-center">
-          <FiMessageCircle className="box-margin-right-5" />
-          Comment
-        </button>
-      }
-    </div>
-  )
-}
-
-class PostCommentEditor extends React.Component {
-  state = {
-    commentEditor: ""
-  }
-
-  onChangeInput = (e) => {
-    this.setState({ ...this.state, [e.target.id]: e.target.value })
-  }
-
-  submitComment = () => {
-    this.props.onSubmit(this.state.commentEditor)
-  }
-
-  render() {
-    if (!this.props.commentOpen) return null
-    if (this.props.loading) {
-      return (
-        <div className="c-commentContainerHeight box-flex-row-center box-margin-bottom-30">
-          <Loading />
-        </div>
-      )
-    }
-
-    return (
-      <div className="box-margin-bottom-30 c-commentContainerHeight">
-        <TextareaAutosize
-          id="commentEditor"
-          placeholder="Write a comment..."
-          value={this.state.comment}
-          onChange={this.onChangeInput}
-          rows={5}
-          maxLength="1000"
-          className={`box-input box-lineheight0`} />
-        <div className="box-flex-row box-flex-end box-margin-top-10">
-          <button onClick={this.submitComment} className="box-button-line-gray box-background">
-            Submit
-          </button>
-        </div>
-      </div>
-    )
-  }
-}
-
-const PostComment = (props) => {
-  let author = null
-  let liked = props.data && props.data.userLiked ? props.data.userLiked : false
-  let likes = props.data && props.data.likes ? props.data.likes : 0
-  let body = props.data && props.data.body ? props.data.body : "Hello"
-  if(!props.data || !props.data.author) {
-    author = {
-      name: "Firstname Lastname",
-      role: "Role",
-      company: "Company",
-      username: "username"
-    }
-  } else author = props.data.author
-  let headline = author.name + ", " + author.role + " @ " + author.company
-  let likeString = likes !== 1 ? "Likes" : "Like"
-
-  return (
-    <div className="box-position-relative box-margin-top-40 box-margin-bottom-40">
-      <Link to={`/m/${author.username}`}
-        className="box-flex-row box-flex-acenter box-color-black box-margin-bottom-20">
-        <div className="box-img-circleWrapper box-profileImage-s box-margin-right-10 box-border-light">
-          <img src={props.data && props.data.image ? props.data.image : Icon}
-            className="box-img-circle" alt="Member" draggable="false" />
-        </div>
-        <h6 className="box-text-nobold">{headline}</h6>
-      </Link>
-
-      <p className="box-margin-bottom-20 box-lineheight-0">{body}</p>
-
-      <div className="box-flex-row box-flex-end box-flex-acenter">
-        <button className={`${liked && "box-button-line-graySelected"} box-button-line-gray box-text-bold box-flex-row-center box-text-8`}>
-          <span className="box-margin-right-5">{likes}</span>
-          {likeString}
-        </button>
-      </div>
-    </div>
-  )
-}
-
-const PostCommentList = (props) => {
-  return (
-    <div className="box-position-relative">
-      <PostComment />
-      {props.comments.map(comment => {
-        return <PostComment data={comment} />
-      })}
-    </div>
-  )
-}
-
 let PostBody = {
   "ops": [
     {
@@ -409,8 +294,5 @@ export {
   PostBookmark,
   PostTags,
   PostDetailsReadOnly,
-  PostCommentButtons,
-  PostCommentEditor,
-  PostBodyPlaceholder,
-  PostCommentList
+  PostBodyPlaceholder
 }

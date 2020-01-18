@@ -1,0 +1,25 @@
+.members-sidebar {
+  width: 220px;
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+.request-padding {
+  padding: 20px;
+}
+
+.progress-bar {
+  position: relative;
+  height: 7px;
+  border-radius: 50px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+  z-index: 10;
+}
+
+.filler {
+  background: var(--black);
+  height: 100%;
+  border-radius: inherit;
+  transition: width .2s ease-in;
+}

@@ -12,40 +12,6 @@ export const challengePD = {
   bookmarked: false
 }
 
-// Slugify url
-export const advicePD = {
-  questionData: {
-    url: "/12345-question-about-business-goes-here",
-    question: "Question about business goes here. It can be about anything that the business requires feedback on.",
-    details: "Details about the question go here. They provide additional context for the particular business problem.",
-    author: {
-      name: "Company Name",
-      role: null,
-      company: null,
-      image: null,
-      username: "companyusername"
-    },
-    bookmarks: 35,
-    answers: 1
-  },
-  answerData: {
-    answer: "Here is the placeholder for the answer. In the future, this will hold the QuillJS delta instead of a literal string. Here is some additional filler text in order to test the limit affect of the div container. Text will be cropped off once reaching the limit of the div height. Text will be cropped off once reaching the limit of the div height. Text will be cropped off once reaching the limit of the div height. Text will be cropped off once reaching the limit of the div height.",
-    author: {
-      name: "Firstname Lastname",
-      role: "Role",
-      company: "Company",
-      image: null,
-      username: "username",
-      isFollowing: false
-    },
-    upvotes: 5
-  },
-  userData: {
-    questionUpvoted: false,
-    answerUpvoted: false
-  }
-}
-
 export const networkPD = {
   image: null,
   url: "/m/user",

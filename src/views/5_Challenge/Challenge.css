@@ -2,7 +2,7 @@
   height: 300px;
   width: 100%;
   overflow: hidden;
-  border-radius: 2px;
+  border-radius: 5px;
 }
 .c-image {
   height: auto;
@@ -24,6 +24,7 @@
   -o-transform: rotate(90deg);
   transform: rotate(90deg);
 }
+.c-thumbIconMargin { margin-bottom: 2px; }
 
 /* FlatePickr Overwrites */
 .flatpickr-minWidth {

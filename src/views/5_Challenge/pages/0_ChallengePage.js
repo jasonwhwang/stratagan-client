@@ -17,6 +17,7 @@ class ChallengePage extends React.Component {
     commentOpen: false,
     commentLoading: false,
 
+    _id: null,
     sub: null,
     image: "",
     title: "",
@@ -60,6 +61,7 @@ class ChallengePage extends React.Component {
 
       if (this.props.authUser && postRes.challenge.author.username === this.props.authUser.username) {
         currState.disabled = false
+        currState.commentDisabled = false
       } else {
         currState.commentDisabled = false
         currState.commentReadOnly = false

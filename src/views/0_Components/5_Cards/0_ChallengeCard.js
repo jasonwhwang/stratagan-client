@@ -5,7 +5,7 @@ import './Card.css'
 import PlaceImage from '../../../img/placeholder.svg'
 import { FiBookmark } from "react-icons/fi"
 import Pill from "./5_Pill"
-import { challengePD } from './_placeholderData' 
+import { challengePD } from './_placeholderData'
 
 class ChallengeCard extends React.Component {
   render() {
@@ -13,13 +13,15 @@ class ChallengeCard extends React.Component {
     let data = this.props.data ? this.props.data : placeholderData
     return (
       <div className='box-flex-row card-padding box-list box-border-bottom'>
-        <Link to={`/c/${data.sub}`}><div className='card-imgWrapper box-flex-row-center box-margin-right-10'>
-          <img
-            src={data.image ? data.image : PlaceImage}
-            alt='Challenge'
-            className='card-img'
-            draggable="false" />
-        </div></Link>
+        <Link to={`/c/${data.sub}`}>
+          <div className='card-imgWrapper box-flex-row-center box-margin-right-10'>
+            <img
+              src={data.image ? data.image : PlaceImage}
+              alt='Challenge'
+              className='card-img'
+              draggable="false" />
+          </div>
+        </Link>
 
         <div className="box-spacer box-flex-col box-margin-left-5">
           <Link to={`/c/${data.sub}`}>
@@ -47,7 +49,7 @@ class ChallengeCard extends React.Component {
             <button className={`box-text-6 card-bookmarkButton ${data.userBookmarked && "card-bookmarkButtonSelected"}`}>
               <FiBookmark className="box-margin-top-5" />
             </button>
-            
+
           </div>
         </div>
       </div>

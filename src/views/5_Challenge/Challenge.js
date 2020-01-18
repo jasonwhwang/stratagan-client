@@ -5,6 +5,10 @@ import './Challenge.css'
 import ChallengePage from './pages/0_ChallengePage'
 import FadeTransition from '../0_Components/10_FadeTransition/FadeTransition'
 import { FiSend, FiBarChart2, FiInfo } from "react-icons/fi"
+import Proposals from './pages/1_Proposals'
+import Requests from './pages/2_Requests'
+import Objectives from './pages/3_Objectives'
+import Updates from './pages/4_Updates'
 
 const mapStateToProps = state => ({
   authUser: state.common.user
@@ -37,15 +41,15 @@ class Challenge extends React.Component {
                 </Link>
                 <div className="box-spacer"></div>
                 <Link to={linkPath + "/requests"}
-                  className={`${this.props.location.pathname === linkPath + "/requests" && "box-tab-selected"} box-tab`}>
+                  className={`${this.props.location.pathname.indexOf(linkPath+'/requests') !== -1 && "box-tab-selected"} box-tab`}>
                   <FiSend className="box-text-6" />
                 </Link>
                 <Link to={linkPath + "/objectives"}
-                  className={`${this.props.location.pathname === linkPath + "/objectives" && "box-tab-selected"} box-tab box-margin-left-5`}>
+                  className={`${this.props.location.pathname.indexOf(linkPath+'/objectives') !== -1 && "box-tab-selected"} box-tab box-margin-left-5`}>
                   <FiBarChart2 className="box-text-5 c-iconRotate90" />
                 </Link>
-                <Link to={linkPath + "/info"}
-                  className={`${this.props.location.pathname === linkPath + "/info" && "box-tab-selected"} box-tab box-margin-left-5`}>
+                <Link to={linkPath + "/updates"}
+                  className={`${this.props.location.pathname === linkPath + "/updates" && "box-tab-selected"} box-tab box-margin-left-5`}>
                   <FiInfo className="box-text-6" />
                 </Link>
               </div>
@@ -56,6 +60,19 @@ class Challenge extends React.Component {
                   history={this.props.history}
                   authUser={this.props.authUser}
                   challenge={this.props.match.params.challenge} />
+              }
+
+              {this.props.location.pathname.indexOf('/proposals') !== -1 &&
+                <Proposals location={this.props.location} linkPath={linkPath} authUser={this.props.authUser}/>
+              }
+              {this.props.location.pathname.indexOf('/requests') !== -1 &&
+                <Requests location={this.props.location} linkPath={linkPath} authUser={this.props.authUser}/>
+              }
+              {this.props.location.pathname.indexOf('/objectives') !== -1 &&
+                <Objectives location={this.props.location} linkPath={linkPath} authUser={this.props.authUser}/>
+              }
+              {this.props.location.pathname.indexOf('/updates') !== -1 &&
+                <Updates location={this.props.location} linkPath={linkPath} authUser={this.props.authUser}/>
               }
             </div>
 

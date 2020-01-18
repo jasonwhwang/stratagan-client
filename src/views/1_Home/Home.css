@@ -1,17 +1,9 @@
-.home-buttons {
-  height: 60px;
+.home-width {
+  max-width: 1000px !important;
 }
-
-.home-button {
-  box-sizing: border-box;
-  padding: 4px 10px;
-}
-
-.home-buttonSelected {
-  background-color: var(--black);
-  border-radius: 3px;
-  color: white;
-}
-.home-buttonSelected:hover {
-  color: white;
+.home-image {
+  height: 300px;
+  width: 320px;
+  object-fit: cover;
+  border-radius: 5px;
 }

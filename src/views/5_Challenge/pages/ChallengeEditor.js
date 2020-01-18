@@ -1,12 +1,14 @@
 import React from 'react'
 import Editor from '../../0_Components/9_Editor/Editor'
 import EditorButtons from '../../0_Components/9_Editor/EditorButtons'
-import { postChallenge, deleteChallenge } from '../../../services/api'
+import { postChallenge, deleteChallenge, getCommentsChallenge,
+  postComment, deleteComment } from '../../../services/api'
 import { uploadFile, removeFile } from '../../../services/authApi'
 import {
   PostImage, PostTitle, PostHeading, PostCompany, PostBookmark, PostTags,
-  PostDetailsReadOnly, PostCommentButtons, PostCommentEditor, PostCommentList, PostBodyPlaceholder
+  PostDetailsReadOnly, PostBodyPlaceholder
 } from './PostComponents'
+import { PostCommentButtons, PostCommentEditor, PostCommentList } from './PostComments'
 import PostDetails from './PostDetails'
 
 class ChallengeEditor extends React.Component {
@@ -20,10 +22,14 @@ class ChallengeEditor extends React.Component {
     loadingPage: true
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     let newState = this.props.initialState
     if (!newState.body) newState.body = PostBodyPlaceholder
     this.setState(newState)
+
+    let commentsRes = await getCommentsChallenge(this.props.initialState._id)
+    if(commentsRes.error) return
+    this.setState({...this.state, comments: commentsRes.comments })
   }
 
   changeVal = (type, val) => {
@@ -134,9 +140,24 @@ class ChallengeEditor extends React.Component {
     }
   }
 
-  submitComment = (data) => {
-    console.log(data)
-    this.setState({ ...this.state, commentOpen: false, commentLoading: true })
+  submitComment = async (data) => {
+    this.setState({ ...this.state, commentLoading: true })
+    let newData = {
+      body: data,
+      challengeId: this.state._id
+    }
+    let commentRes = await postComment({ comment: newData })
+    if(commentRes.error) return
+
+    let newComments = await getCommentsChallenge(this.props.initialState._id)
+    if(newComments.error) return
+    this.setState({...this.state, comments: newComments.comments, commentOpen: false, commentLoading: false })
+  }
+  deleteComment = async (data) => {
+    await deleteComment({comment: { _id: data }})
+    let newComments = await getCommentsChallenge(this.props.initialState._id)
+    if(newComments.error) return
+    this.setState({...this.state, comments: newComments.comments })
   }
 
   render() {
@@ -239,7 +260,10 @@ class ChallengeEditor extends React.Component {
           loading={this.state.commentLoading}
           commentOpen={this.state.commentOpen} />
 
-        <PostCommentList comments={this.state.comments}/>
+        <PostCommentList
+          comments={this.state.comments}
+          authUser={this.props.authUser}
+          delete={this.deleteComment}/>
       </div>
     )
   }
