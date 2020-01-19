@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/jasonwhwang/stratagan-client"
   },
   "dependencies": {
     "aws-amplify": "^2.2.1",
