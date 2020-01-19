@@ -4,7 +4,8 @@ import AuthStore from "./authStore"
 
 // Axios Github Documentation:
 // https://github.com/axios/axios#example
-axios.defaults.baseURL = 'http://localhost:5000/api'
+// axios.defaults.baseURL = 'http://localhost:5000/api'
+axios.defaults.baseURL = 'https://stratagan.herokuapp.com/api'
 axios.defaults.headers.post['X-Requested-With'] = 'XML-HTTPRequest'
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 
