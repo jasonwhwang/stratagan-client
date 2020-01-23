@@ -1,8 +1,10 @@
 import React from 'react'
 import Editor from '../../0_Components/9_Editor/Editor'
 import EditorButtons from '../../0_Components/9_Editor/EditorButtons'
-import { postChallenge, deleteChallenge, getCommentsChallenge,
-  postComment, deleteComment } from '../../../services/api'
+import {
+  postChallenge, deleteChallenge, getCommentsChallenge,
+  postComment, deleteComment
+} from '../../../services/api'
 import { uploadFile, removeFile } from '../../../services/authApi'
 import {
   PostImage, PostTitle, PostHeading, PostCompany, PostBookmark, PostTags,
@@ -10,6 +12,7 @@ import {
 } from './PostComponents'
 import { PostCommentButtons, PostCommentEditor, PostCommentList } from './PostComments'
 import PostDetails from './PostDetails'
+import ErrorBoundary from '../../0_Components/3_ErrorBoundary/ErrorBoundary'
 
 class ChallengeEditor extends React.Component {
   constructor(props) {
@@ -28,8 +31,8 @@ class ChallengeEditor extends React.Component {
     this.setState(newState)
 
     let commentsRes = await getCommentsChallenge(this.props.initialState._id)
-    if(commentsRes.error) return
-    this.setState({...this.state, comments: commentsRes.comments })
+    if (commentsRes.error) return
+    this.setState({ ...this.state, comments: commentsRes.comments, loading: false })
   }
 
   changeVal = (type, val) => {
@@ -147,124 +150,126 @@ class ChallengeEditor extends React.Component {
       challengeId: this.state._id
     }
     let commentRes = await postComment({ comment: newData })
-    if(commentRes.error) return
+    if (commentRes.error) return
 
     let newComments = await getCommentsChallenge(this.props.initialState._id)
-    if(newComments.error) return
-    this.setState({...this.state, comments: newComments.comments, commentOpen: false, commentLoading: false })
+    if (newComments.error) return
+    this.setState({ ...this.state, comments: newComments.comments, commentOpen: false, commentLoading: false })
   }
   deleteComment = async (data) => {
-    await deleteComment({comment: { _id: data }})
+    await deleteComment({ comment: { _id: data } })
     let newComments = await getCommentsChallenge(this.props.initialState._id)
-    if(newComments.error) return
-    this.setState({...this.state, comments: newComments.comments })
+    if (newComments.error) return
+    this.setState({ ...this.state, comments: newComments.comments })
   }
 
   render() {
     if (this.state.loadingPage) return null
 
     return (
-      <div className="box-position-relative">
-        <PostImage
-          imageHandler={this.imageHandler}
-          image={this.state.image}
-          editorReadOnly={this.state.editorReadOnly} />
+      <ErrorBoundary>
+        <div className="box-position-relative">
+          <PostImage
+            imageHandler={this.imageHandler}
+            image={this.state.image}
+            editorReadOnly={this.state.editorReadOnly} />
 
-        <div className="box-flex-row box-margin-top-40 box-margin-bottom-60">
-          <div className="box-spacer box-margin-right-40">
-            <PostTitle
+          <div className="box-flex-row box-margin-top-40 box-margin-bottom-60">
+            <div className="box-spacer box-margin-right-40">
+              <PostTitle
+                editorReadOnly={this.state.editorReadOnly}
+                onChangeInput={this.onChangeInput}
+                title={this.state.title}
+                type={this.props.type}
+              />
+              <PostHeading
+                editorReadOnly={this.state.editorReadOnly}
+                onChangeInput={this.onChangeInput}
+                heading={this.state.heading}
+                type={this.props.type}
+              />
+              <PostCompany author={this.state.author} />
+            </div>
+            <PostBookmark
               editorReadOnly={this.state.editorReadOnly}
-              onChangeInput={this.onChangeInput}
-              title={this.state.title}
-              type={this.props.type}
+              bookmarkedCount={this.state.bookmarkedCount}
+              userBookmarked={this.state.userBookmarked}
             />
-            <PostHeading
-              editorReadOnly={this.state.editorReadOnly}
-              onChangeInput={this.onChangeInput}
-              heading={this.state.heading}
-              type={this.props.type}
-            />
-            <PostCompany author={this.state.author} />
           </div>
-          <PostBookmark
-            editorReadOnly={this.state.editorReadOnly}
-            bookmarkedCount={this.state.bookmarkedCount}
-            userBookmarked={this.state.userBookmarked}
-          />
-        </div>
 
-        <div className="box-position-relative c-editorMarginBottom">
-          <Editor
-            text={this.state.body}
-            submitEditor={this.submitEditor}
+          <div className="box-position-relative c-editorMarginBottom">
+            <Editor
+              text={this.state.body}
+              submitEditor={this.submitEditor}
+              editorReadOnly={this.state.editorReadOnly}
+              changeVal={this.changeVal}
+              ref={this.editor}
+              editorPlaceholder={this.props.type === "challenge" ?
+                "Your challenge is empty. Add text, images, & more to your challenge."
+                :
+                "Your proposal is empty. Write your proposal for the challenge."
+              }
+            />
+          </div>
+
+          <PostTags
+            editorReadOnly={this.state.editorReadOnly}
+            tags={this.state.tags}
+            changeVal={this.changeVal}
+            type={this.props.type}
+          />
+
+          {this.state.editorReadOnly ?
+            <PostDetailsReadOnly
+              status={this.state.status}
+              type={this.state.type}
+              budget={this.state.budget}
+              endDate={this.state.endDate}
+              author={this.state.author}
+              startDate={this.state.startDate}
+            />
+            :
+            <PostDetails
+              status={this.state.status}
+              type={this.state.type}
+              budget={this.state.budget}
+              endDate={this.state.endDate}
+              startDate={this.state.startDate}
+              changeVal={this.changeVal}
+            />
+          }
+
+          <EditorButtons
+            disabled={this.state.disabled}
+            delete={this.deleteCurrentPost}
+            updatedAt={this.state.updatedAt}
             editorReadOnly={this.state.editorReadOnly}
             changeVal={this.changeVal}
-            ref={this.editor}
-            editorPlaceholder={this.props.type === "challenge" ?
-              "Your challenge is empty. Add text, images, & more to your challenge."
-              :
-              "Your proposal is empty. Write your proposal for the challenge."
-            }
+            submit={this.submitEditorButton}
+            error={this.state.error}
+            loading={this.state.loading}
+            success={this.state.success}
           />
-        </div>
 
-        <PostTags
-          editorReadOnly={this.state.editorReadOnly}
-          tags={this.state.tags}
-          changeVal={this.changeVal}
-          type={this.props.type}
-        />
-
-        {this.state.editorReadOnly ?
-          <PostDetailsReadOnly
-            status={this.state.status}
-            type={this.state.type}
-            budget={this.state.budget}
-            endDate={this.state.endDate}
-            author={this.state.author}
-            startDate={this.state.startDate}
-          />
-          :
-          <PostDetails
-            status={this.state.status}
-            type={this.state.type}
-            budget={this.state.budget}
-            endDate={this.state.endDate}
-            startDate={this.state.startDate}
+          <PostCommentButtons
+            commentCount={this.state.comments.length}
+            commentDisabled={this.state.commentDisabled}
             changeVal={this.changeVal}
+            commentOpen={this.state.commentOpen}
+            route={this.props.challenge}
           />
-        }
 
-        <EditorButtons
-          disabled={this.state.disabled}
-          delete={this.deleteCurrentPost}
-          updatedAt={this.state.updatedAt}
-          editorReadOnly={this.state.editorReadOnly}
-          changeVal={this.changeVal}
-          submit={this.submitEditorButton}
-          error={this.state.error}
-          loading={this.state.loading}
-          success={this.state.success}
-        />
+          <PostCommentEditor
+            onSubmit={this.submitComment}
+            loading={this.state.commentLoading}
+            commentOpen={this.state.commentOpen} />
 
-        <PostCommentButtons
-          commentCount={this.state.comments.length}
-          commentDisabled={this.state.commentDisabled}
-          changeVal={this.changeVal}
-          commentOpen={this.state.commentOpen}
-          route={this.props.challenge}
-        />
-
-        <PostCommentEditor
-          onSubmit={this.submitComment}
-          loading={this.state.commentLoading}
-          commentOpen={this.state.commentOpen} />
-
-        <PostCommentList
-          comments={this.state.comments}
-          authUser={this.props.authUser}
-          delete={this.deleteComment}/>
-      </div>
+          <PostCommentList
+            comments={this.state.comments}
+            authUser={this.props.authUser}
+            delete={this.deleteComment} />
+        </div>
+      </ErrorBoundary>
     )
   }
 }

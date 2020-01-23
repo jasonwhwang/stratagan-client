@@ -116,7 +116,7 @@ class PostComment extends React.Component {
         <div className="box-flex-row box-flex-acenter">
           <h6 className="box-text-8 box-text-nobold">{textDate}</h6>
           <div className="box-spacer"></div>
-          {this.props.authUser.username === this.props.author.username &&
+          {this.props.authUser && this.props.authUser.username === this.props.author.username &&
             <button onClick={this.deleteComment}
               className="box-margin-right-20 box-margin-top-3">
               <FiTrash2 />

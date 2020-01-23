@@ -66,7 +66,6 @@ class ChallengePage extends React.Component {
         currState.commentDisabled = false
         currState.commentReadOnly = false
       }
-      currState.loading = false
       currState.loadingPage = false
       this.setState(currState)
       return
@@ -78,7 +77,7 @@ class ChallengePage extends React.Component {
   }
 
   render() {
-    if (this.state.loading || this.state.error) return <LoadingPage small={true} error={this.state.error} />
+    if (this.state.loadingPage || this.state.error) return <LoadingPage small={true} error={this.state.error} />
 
     return (
       <FadeTransition>
